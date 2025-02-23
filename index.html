@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة التحليل الفني</title>
-    <script src="https://unpkg.com/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.min.js"></script>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         body {
             background-color: #1a202c;
@@ -39,6 +39,11 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            if (typeof LightweightCharts === "undefined") {
+                console.error("❌ خطأ: مكتبة الرسم لم يتم تحميلها!");
+                return;
+            }
+
             const chartElement = document.getElementById("chart");
             const chart = LightweightCharts.createChart(chartElement, {
                 width: chartElement.clientWidth,
@@ -60,23 +65,35 @@
                 const symbol = "IBM";
                 const interval = "5min";
                 const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${interval}&apikey=${apiKey}&outputsize=compact`;
-                
+
                 try {
                     const response = await fetch(url);
+                    if (!response.ok) throw new Error("فشل في جلب البيانات: " + response.statusText);
+
                     const data = await response.json();
-                    console.log("البيانات المستلمة من API:", data);
-                    
+                    console.log("📊 البيانات المستلمة:", data);
+
                     if (data["Time Series (5min)"]) {
                         const timeSeries = data["Time Series (5min)"];
-                        const formattedData = Object.keys(timeSeries).map(timestamp => ({
-                            time: Math.floor(new Date(timestamp).getTime() / 1000),
-                            open: parseFloat(timeSeries[timestamp]["1. open"]),
-                            high: parseFloat(timeSeries[timestamp]["2. high"]),
-                            low: parseFloat(timeSeries[timestamp]["3. low"]),
-                            close: parseFloat(timeSeries[timestamp]["4. close"])
-                        }));
-                        
-                        candleSeries.setData(formattedData.reverse());
+                        const formattedData = Object.keys(timeSeries)
+                            .map(timestamp => {
+                                const date = new Date(timestamp);
+                                if (isNaN(date.getTime())) return null;
+                                return {
+                                    time: Math.floor(date.getTime() / 1000),
+                                    open: parseFloat(timeSeries[timestamp]["1. open"]),
+                                    high: parseFloat(timeSeries[timestamp]["2. high"]),
+                                    low: parseFloat(timeSeries[timestamp]["3. low"]),
+                                    close: parseFloat(timeSeries[timestamp]["4. close"])
+                                };
+                            })
+                            .filter(item => item !== null); 
+
+                        if (formattedData.length > 0) {
+                            candleSeries.setData(formattedData.reverse());
+                        } else {
+                            console.error("⚠️ لا توجد بيانات صالحة للعرض.");
+                        }
                     } else {
                         console.error("⚠️ لم يتم العثور على بيانات، تحقق من استجابة API.", data);
                     }
@@ -90,3 +107,4 @@
     </script>
 </body>
 </html>
+
