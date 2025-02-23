@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>موقع شارت بسيط - شبيه TradingView</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+    }
+    header {
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    #chart {
+      width: 90%;
+      height: 80vh;
+    }
+  </style>
+  <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+  <header>📊 موقع شارت بسيط - شبيه TradingView</header>
+  <div id="chart"></div>
+
+  <script>
+    // إنشاء الشارت
+    const chart = LightweightCharts.createChart(document.getElementById('chart'), {
+      width: document.getElementById('chart').clientWidth,
+      height: document.getElementById('chart').clientHeight,
+      layout: {
+        background: { color: '#121212' },
+        textColor: 'white',
+      },
+      grid: {
+        vertLines: { color: '#444' },
+        horzLines: { color: '#444' },
+      },
+    });
+
+    const lineSeries = chart.addLineSeries();
+
+    // بيانات وهمية للشارت
+    lineSeries.setData([
+      { time: '2024-02-19', value: 150 },
+      { time: '2024-02-20', value: 155 },
+      { time: '2024-02-21', value: 153 },
+      { time: '2024-02-22', value: 160 },
+      { time: '2024-02-23', value: 158 },
+    ]);
+
+    // تعديل حجم الشارت عند تغيير حجم الشاشة
+    window.addEventListener('resize', () => {
+      chart.resize(document.getElementById('chart').clientWidth, document.getElementById('chart').clientHeight);
+    });
+  </script>
+</body>
+</html>
