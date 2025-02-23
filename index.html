@@ -1,64 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>موقع شارت بسيط - شبيه TradingView</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100vh;
-    }
-    header {
-      padding: 20px;
-      font-size: 24px;
-      font-weight: bold;
-    }
-    #chart {
-      width: 90%;
-      height: 80vh;
-    }
-  </style>
-  <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع التداول - بسيط وأنيق</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <header>📊 موقع شارت بسيط - شبيه TradingView</header>
-  <div id="chart"></div>
+<body class="bg-gray-100 text-gray-800">
+    <!-- Header -->
+    <header class="bg-white shadow-md p-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">📈 منصة التداول</h1>
+        <div>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md mr-2">تسجيل الدخول</button>
+            <button class="bg-green-500 text-white px-4 py-2 rounded-md">إنشاء حساب</button>
+        </div>
+    </header>
 
-  <script>
-    // إنشاء الشارت
-    const chart = LightweightCharts.createChart(document.getElementById('chart'), {
-      width: document.getElementById('chart').clientWidth,
-      height: document.getElementById('chart').clientHeight,
-      layout: {
-        background: { color: '#121212' },
-        textColor: 'white',
-      },
-      grid: {
-        vertLines: { color: '#444' },
-        horzLines: { color: '#444' },
-      },
-    });
+    <!-- نبذة تعريفية -->
+    <section class="p-8 text-center bg-white my-4 rounded-lg shadow">
+        <h2 class="text-3xl font-semibold mb-4">🔍 نبذة عن المنصة</h2>
+        <p class="text-lg">منصة مجانية لرسم وتحليل الأسواق المالية، تدعم بيانات حية ومؤشرات متعددة، مصممة لتوفير أفضل تجربة للمستخدم.</p>
+    </section>
 
-    const lineSeries = chart.addLineSeries();
+    <!-- الباقات -->
+    <section class="p-8 bg-gray-200 rounded-lg shadow">
+        <h2 class="text-3xl font-semibold text-center mb-8">💎 الباقات المتاحة</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-xl font-bold mb-2">الباقة المجانية</h3>
+                <p>الوصول لأساسيات المنصة مع بيانات فورية.</p>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4">ابدأ الآن</button>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-xl font-bold mb-2">الباقة المميزة</h3>
+                <p>بيانات لحظية، مؤشرات إضافية، وإعلانات أقل.</p>
+                <button class="bg-green-500 text-white px-4 py-2 rounded-md mt-4">اشترك الآن</button>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-xl font-bold mb-2">الباقة الاحترافية</h3>
+                <p>أدوات تداول احترافية، دعم كامل، وتجربة بدون إعلانات.</p>
+                <button class="bg-red-500 text-white px-4 py-2 rounded-md mt-4">اشترك الآن</button>
+            </div>
+        </div>
+    </section>
 
-    // بيانات وهمية للشارت
-    lineSeries.setData([
-      { time: '2024-02-19', value: 150 },
-      { time: '2024-02-20', value: 155 },
-      { time: '2024-02-21', value: 153 },
-      { time: '2024-02-22', value: 160 },
-      { time: '2024-02-23', value: 158 },
-    ]);
+    <!-- أماكن فارغة للشارت -->
+    <section class="p-8 bg-white rounded-lg shadow my-4">
+        <h2 class="text-3xl font-semibold text-center mb-6">📊 الشارتات الحية</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-gray-200 rounded-lg h-80 flex items-center justify-center text-gray-500">المساحة 1: الشارت هنا</div>
+            <div class="bg-gray-200 rounded-lg h-80 flex items-center justify-center text-gray-500">المساحة 2: الشارت هنا</div>
+        </div>
+    </section>
 
-    // تعديل حجم الشارت عند تغيير حجم الشاشة
-    window.addEventListener('resize', () => {
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
+        <p>© 2025 جميع الحقوق محفوظة - منصة التداول الخاصة بك 🚀</p>
+    </footer>
+</body>
+</html>
+
       chart.resize(document.getElementById('chart').clientWidth, document.getElementById('chart').clientHeight);
     });
   </script>
