@@ -3,212 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة التحليل - شبيهة بـ TradingView</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <title>منصة التحليل الفني</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightweight-charts/3.8.0/lightweight-charts.standalone.production.min.js"></script>
     <style>
         body {
-            margin: 0;
-            font-family: 'Cairo', sans-serif;
-            background-color: #0a0f1a;
-            color: #f1f5f9;
-        }
-        header {
-            background-color: #111827;
-            padding: 20px 40px;
+            background-color: #1a202c;
+            color: white;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        header .logo {
-            font-size: 2rem;
-            color: #fbbf24;
-            font-weight: 700;
-        }
-        nav {
-            display: flex;
-            gap: 30px;
-        }
-        nav a {
-            color: #f1f5f9;
-            text-decoration: none;
-            font-size: 1.2rem;
-        }
-        nav a:hover {
-            color: #fbbf24;
-        }
-        .hero-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
             height: 100vh;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.3), rgba(10, 15, 26, 0.9)),
-                        url('https://media.istockphoto.com/id/1314320976/vector/stock-market-analysis.jpg') no-repeat center center/cover;
-            text-align: center;
-            animation: backgroundMove 20s infinite linear;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
         }
-        @keyframes backgroundMove {
-            from { background-position: 0 0; }
-            to { background-position: 100% 0; }
+        .chart-container {
+            width: 90%;
+            max-width: 900px;
+            background-color: #2d3748;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        .hero-section h1 {
-            font-size: 3.5rem;
-            color: #fbbf24;
-            margin-bottom: 20px;
-        }
-        .hero-section p {
-            font-size: 1.4rem;
-            color: #f1f5f9;
-            margin-bottom: 30px;
-        }
-        .hero-section button {
-            padding: 18px 35px;
-            font-size: 1.3rem;
-            border: none;
-            border-radius: 8px;
-            background-color: #4f46e5;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .hero-section button:hover {
-            background-color: #4338ca;
-        }
-        .chart-section {
-            padding: 80px 20px;
-            text-align: center;
-            background-color: #1e293b;
-        }
-        .chart-section h2 {
-            color: #fbbf24;
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-        }
-        #chartContainer {
+        #chart {
             width: 100%;
-            height: 600px;
-            margin: auto;
+            height: 400px;
         }
-        .chart-buttons {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .chart-buttons button {
-            padding: 12px 25px;
-            font-size: 1.1rem;
-            border-radius: 6px;
-            border: none;
-            background-color: #10b981;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .chart-buttons button:hover {
-            background-color: #059669;
-        }
-        .duration-buttons {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        .duration-buttons button {
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 6px;
-            border: none;
-            background-color: #3b82f6;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .duration-buttons button:hover {
-            background-color: #2563eb;
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">Capital منصة التحليل</div>
-        <nav>
-            <a href="#home">الرئيسية</a>
-            <a href="#charts">الرسوم البيانية</a>
-            <a href="#pricing">الباقات</a>
-            <a href="#login">تسجيل الدخول</a>
-        </nav>
-    </header>
-
-    <section class="hero-section" id="home">
-        <h1>تحليلات احترافية شبيهة بـ TradingView</h1>
-        <p>منصة متكاملة تقدم الرسوم البيانية الحية، الأخبار، وخيارات تداول متقدمة.</p>
-        <button onclick="location.href='#charts'">ابدأ الآن</button>
-    </section>
-
-    <section class="chart-section" id="charts">
-        <h2>الرسوم البيانية الحية</h2>
-        <div class="chart-buttons">
-            <button onclick="updateChart('EURUSD')">EUR/USD</button>
-            <button onclick="updateChart('GOLD')">الذهب</button>
-            <button onclick="updateChart('BTCUSD')">البيتكوين</button>
-        </div>
-        <div class="duration-buttons">
-            <button onclick="changeInterval('1')">1 دقيقة</button>
-            <button onclick="changeInterval('5')">5 دقائق</button>
-            <button onclick="changeInterval('15')">15 دقيقة</button>
-            <button onclick="changeInterval('60')">ساعة</button>
-            <button onclick="changeInterval('D')">يومي</button>
-        </div>
-        <div id="chartContainer"></div>
-    </section>
-
+    <h1>منصة التحليل الفني</h1>
+    <div class="chart-container">
+        <div id="chart"></div>
+    </div>
     <script>
-        let chart, candleSeries;
+        document.addEventListener("DOMContentLoaded", function () {
+            const chartElement = document.getElementById("chart");
+            
+            // التأكد من أن العرض مضبوط
+            function getChartWidth() {
+                return chartElement.clientWidth || 600;
+            }
 
-        function initializeChart() {
-            chart = LightweightCharts.createChart(document.getElementById('chartContainer'), {
-                width: document.getElementById('chartContainer').clientWidth,
-                height: 600,
-                layout: { backgroundColor: '#1e293b', textColor: '#d1d5db' },
-                grid: { vertLines: { color: '#334155' }, horzLines: { color: '#334155' } },
-                timeScale: { timeVisible: true, secondsVisible: false },
+            const chart = LightweightCharts.createChart(chartElement, {
+                width: getChartWidth(),
+                height: 400,
+                layout: {
+                    backgroundColor: '#2d3748',
+                    textColor: 'white',
+                },
+                grid: {
+                    vertLines: { color: '#444' },
+                    horzLines: { color: '#444' }
+                }
             });
-            candleSeries = chart.addCandlestickSeries();
-            loadSampleData();
-        }
 
-        function loadSampleData() {
+            const candleSeries = chart.addCandlestickSeries();
+            
             candleSeries.setData([
-                { time: '2024-02-01', open: 100, high: 110, low: 90, close: 105 },
-                { time: '2024-02-02', open: 105, high: 115, low: 100, close: 108 },
-                { time: '2024-02-03', open: 108, high: 120, low: 107, close: 115 },
-                { time: '2024-02-04', open: 115, high: 125, low: 110, close: 118 },
+                { time: "2024-02-19", open: 100, high: 110, low: 95, close: 105 },
+                { time: "2024-02-20", open: 106, high: 115, low: 100, close: 112 },
+                { time: "2024-02-21", open: 113, high: 120, low: 108, close: 118 },
             ]);
-        }
 
-        function updateChart(symbol) {
-            candleSeries.setData([]);
-            loadSampleData();
-            console.log(`تم تحميل البيانات لـ: ${symbol}`);
-        }
-
-        function changeInterval(interval) {
-            console.log(`تم تغيير الإطار الزمني إلى: ${interval}`);
-            candleSeries.setData([]);
-            loadSampleData();
-        }
-
-        window.addEventListener('resize', () => {
-            chart.applyOptions({ width: document.getElementById('chartContainer').clientWidth });
+            // تحديث حجم الشارت عند تغيير حجم النافذة
+            new ResizeObserver(() => {
+                chart.resize(getChartWidth(), 400);
+            }).observe(chartElement);
         });
-
-        window.onload = initializeChart;
     </script>
 </body>
 </html>
-
