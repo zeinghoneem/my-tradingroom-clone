@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         body {
             margin: 0;
@@ -87,18 +88,48 @@
             font-size: 2.5rem;
             margin-bottom: 30px;
         }
-        .chart-section button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
+        #chartContainer {
+            width: 100%;
+            height: 600px;
+            margin: auto;
+        }
+        .chart-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .chart-buttons button {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 6px;
             border: none;
-            border-radius: 8px;
-            background-color: #4f46e5;
-            color: #fff;
+            background-color: #10b981;
+            color: white;
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .chart-section button:hover {
-            background-color: #4338ca;
+        .chart-buttons button:hover {
+            background-color: #059669;
+        }
+        .duration-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .duration-buttons button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: none;
+            background-color: #3b82f6;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .duration-buttons button:hover {
+            background-color: #2563eb;
         }
     </style>
 </head>
@@ -108,8 +139,8 @@
         <nav>
             <a href="#home">الرئيسية</a>
             <a href="#charts">الرسوم البيانية</a>
-            <a href="#login">تسجيل الدخول</a>
             <a href="#pricing">الباقات</a>
+            <a href="#login">تسجيل الدخول</a>
         </nav>
     </header>
 
@@ -120,45 +151,64 @@
     </section>
 
     <section class="chart-section" id="charts">
-        <h2>الرسوم البيانية</h2>
-        <p>استعرض التحليلات الفنية المباشرة مع أدوات تداول متقدمة.</p>
-        <button onclick="location.href='charts.html'">دخول إلى الرسوم البيانية</button>
-    </section>
-
-    <section class="pricing-section" id="pricing">
-        <h2>خطط الاشتراك بالدولار</h2>
-        <div class="pricing-container">
-            <div class="pricing-card">
-                <h3>CLASSIC</h3>
-                <p>الوصول المجاني للشارتات الأساسية ومؤشرات محدودة.</p>
-                <div class="price">$0 / شهر</div>
-                <button onclick="location.href='charts.html'">ابدأ مجانًا</button>
-            </div>
-            <div class="pricing-card">
-                <h3>FRX</h3>
-                <p>مؤشرات تحليل إضافية وإمكانية تخصيص الشارت.</p>
-                <div class="price">$15 / شهر</div>
-                <button onclick="location.href='charts.html'">اشترك الآن</button>
-            </div>
-            <div class="pricing-card">
-                <h3>FRX PLUS</h3>
-                <p>تحليلات فورية وإمكانية الوصول إلى أدوات تداول متقدمة.</p>
-                <div class="price">$35 / شهر</div>
-                <button onclick="location.href='charts.html'">اشترك الآن</button>
-            </div>
-            <div class="pricing-card">
-                <h3>FRX PRO</h3>
-                <p>كل المميزات الكاملة مع أدوات تداول وتحليل احترافية.</p>
-                <div class="price">$60 / شهر</div>
-                <button onclick="location.href='charts.html'">اشترك الآن</button>
-            </div>
+        <h2>الرسوم البيانية الحية</h2>
+        <div class="chart-buttons">
+            <button onclick="updateChart('EURUSD')">EUR/USD</button>
+            <button onclick="updateChart('GOLD')">الذهب</button>
+            <button onclick="updateChart('BTCUSD')">البيتكوين</button>
         </div>
+        <div class="duration-buttons">
+            <button onclick="changeInterval('1')">1 دقيقة</button>
+            <button onclick="changeInterval('5')">5 دقائق</button>
+            <button onclick="changeInterval('15')">15 دقيقة</button>
+            <button onclick="changeInterval('60')">ساعة</button>
+            <button onclick="changeInterval('D')">يومي</button>
+        </div>
+        <div id="chartContainer"></div>
     </section>
 
-    <section class="auth-section" id="login">
-        <h2>تسجيل الدخول أو الاشتراك</h2>
-        <button onclick="alert('سيتم إضافة ميزة التسجيل قريبًا!')">تسجيل الدخول</button>
-        <button onclick="alert('سيتم إضافة ميزة الاشتراك قريبًا!')">إنشاء حساب</button>
-    </section>
+    <script>
+        let chart, candleSeries;
+
+        function initializeChart() {
+            chart = LightweightCharts.createChart(document.getElementById('chartContainer'), {
+                width: document.getElementById('chartContainer').clientWidth,
+                height: 600,
+                layout: { backgroundColor: '#1e293b', textColor: '#d1d5db' },
+                grid: { vertLines: { color: '#334155' }, horzLines: { color: '#334155' } },
+                timeScale: { timeVisible: true, secondsVisible: false },
+            });
+            candleSeries = chart.addCandlestickSeries();
+            loadSampleData();
+        }
+
+        function loadSampleData() {
+            candleSeries.setData([
+                { time: '2024-02-01', open: 100, high: 110, low: 90, close: 105 },
+                { time: '2024-02-02', open: 105, high: 115, low: 100, close: 108 },
+                { time: '2024-02-03', open: 108, high: 120, low: 107, close: 115 },
+                { time: '2024-02-04', open: 115, high: 125, low: 110, close: 118 },
+            ]);
+        }
+
+        function updateChart(symbol) {
+            candleSeries.setData([]);
+            loadSampleData();
+            console.log(`تم تحميل البيانات لـ: ${symbol}`);
+        }
+
+        function changeInterval(interval) {
+            console.log(`تم تغيير الإطار الزمني إلى: ${interval}`);
+            candleSeries.setData([]);
+            loadSampleData();
+        }
+
+        window.addEventListener('resize', () => {
+            chart.applyOptions({ width: document.getElementById('chartContainer').clientWidth });
+        });
+
+        window.onload = initializeChart;
+    </script>
 </body>
 </html>
+
