@@ -3,137 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقع شبيه TradingView</title>
+    <title>منصة التحليل - شبيهة بـ TradingView</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #1f1c2c, #928dab);
-            color: #fff;
-            text-align: center;
+            background-color: #0a0f1a;
+            color: #f1f5f9;
         }
         header {
-            padding: 20px;
+            background-color: #111827;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        header .logo {
             font-size: 2rem;
-            font-weight: bold;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
+            color: #fbbf24;
+            font-weight: 700;
         }
-        .container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            padding: 20px;
+        nav {
+            display: flex;
+            gap: 30px;
         }
-        .package-card, .chart-placeholder, .auth-section {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        nav a {
+            color: #f1f5f9;
+            text-decoration: none;
+            font-size: 1.2rem;
         }
-        .package-card button, .auth-section button {
-            background-color: #ff7eb3;
+        nav a:hover {
+            color: #fbbf24;
+        }
+        .hero-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.3), rgba(10, 15, 26, 0.9)),
+                        url('https://media.istockphoto.com/id/1314320976/vector/stock-market-analysis.jpg') no-repeat center center/cover;
+            text-align: center;
+            animation: backgroundMove 20s infinite linear;
+        }
+        @keyframes backgroundMove {
+            from { background-position: 0 0; }
+            to { background-position: 100% 0; }
+        }
+        .hero-section h1 {
+            font-size: 3.5rem;
+            color: #fbbf24;
+            margin-bottom: 20px;
+        }
+        .hero-section p {
+            font-size: 1.4rem;
+            color: #f1f5f9;
+            margin-bottom: 30px;
+        }
+        .hero-section button {
+            padding: 18px 35px;
+            font-size: 1.3rem;
             border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
+            border-radius: 8px;
+            background-color: #4f46e5;
+            color: #fff;
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .package-card button:hover, .auth-section button:hover {
-            background-color: #ff5583;
+        .hero-section button:hover {
+            background-color: #4338ca;
         }
-        .auth-section input {
-            width: 80%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 10px;
+        .chart-section {
+            padding: 80px 20px;
+            text-align: center;
+            background-color: #1e293b;
+        }
+        .chart-section h2 {
+            color: #fbbf24;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        .chart-section button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
             border: none;
+            border-radius: 8px;
+            background-color: #4f46e5;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .chart-section button:hover {
+            background-color: #4338ca;
         }
     </style>
 </head>
 <body>
     <header>
-        موقع رسم بياني أنيق شبيه بـ TradingView
+        <div class="logo">Capital منصة التحليل</div>
+        <nav>
+            <a href="#home">الرئيسية</a>
+            <a href="#charts">الرسوم البيانية</a>
+            <a href="#login">تسجيل الدخول</a>
+            <a href="#pricing">الباقات</a>
+        </nav>
     </header>
-    <div class="container">
-        <section class="auth-section">
-            <h2>تسجيل الدخول</h2>
-            <input type="text" placeholder="اسم المستخدم">
-            <input type="password" placeholder="كلمة المرور">
-            <button>تسجيل الدخول</button>
-        </section>
-        <section class="auth-section">
-            <h2>إنشاء حساب</h2>
-            <input type="text" placeholder="اسم المستخدم">
-            <input type="email" placeholder="البريد الإلكتروني">
-            <input type="password" placeholder="كلمة المرور">
-            <button>اشتراك</button>
-        </section>
-        <section class="chart-placeholder">
-            <h2>منطقة الشارت الحي</h2>
-            <p>سيتم عرض الرسوم البيانية هنا.</p>
-        </section>
-        <section class="package-card">
-            <h2>الباقات المتاحة</h2>
-            <p>باقة أساسية - وصول محدود</p>
-            <button>اشترك الآن</button>
-            <p>باقة احترافية - وصول كامل + مزايا إضافية</p>
-            <button>اشترك الآن</button>
-        </section>
-        <section>
-            <h2>نبذة تعريفية</h2>
-            <p>هذا الموقع يقدم رسوماً بيانية حية مع ميزات متقدمة لمتابعة الأسواق بسهولة وبشكل مجاني لفترة محدودة.</p>
-        </section>
-    </div>
-</body>
-</html>
 
-    <!-- نبذة تعريفية -->
-    <section class="p-8 text-center bg-white my-4 rounded-lg shadow">
-        <h2 class="text-3xl font-semibold mb-4">🔍 نبذة عن المنصة</h2>
-        <p class="text-lg">منصة مجانية لرسم وتحليل الأسواق المالية، تدعم بيانات حية ومؤشرات متعددة، مصممة لتوفير أفضل تجربة للمستخدم.</p>
+    <section class="hero-section" id="home">
+        <h1>تحليلات احترافية شبيهة بـ TradingView</h1>
+        <p>منصة متكاملة تقدم الرسوم البيانية الحية، الأخبار، وخيارات تداول متقدمة.</p>
+        <button onclick="location.href='#charts'">ابدأ الآن</button>
     </section>
 
-    <!-- الباقات -->
-    <section class="p-8 bg-gray-200 rounded-lg shadow">
-        <h2 class="text-3xl font-semibold text-center mb-8">💎 الباقات المتاحة</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                <h3 class="text-xl font-bold mb-2">الباقة المجانية</h3>
-                <p>الوصول لأساسيات المنصة مع بيانات فورية.</p>
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4">ابدأ الآن</button>
+    <section class="chart-section" id="charts">
+        <h2>الرسوم البيانية</h2>
+        <p>استعرض التحليلات الفنية المباشرة مع أدوات تداول متقدمة.</p>
+        <button onclick="location.href='charts.html'">دخول إلى الرسوم البيانية</button>
+    </section>
+
+    <section class="pricing-section" id="pricing">
+        <h2>خطط الاشتراك بالدولار</h2>
+        <div class="pricing-container">
+            <div class="pricing-card">
+                <h3>CLASSIC</h3>
+                <p>الوصول المجاني للشارتات الأساسية ومؤشرات محدودة.</p>
+                <div class="price">$0 / شهر</div>
+                <button onclick="location.href='charts.html'">ابدأ مجانًا</button>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                <h3 class="text-xl font-bold mb-2">الباقة المميزة</h3>
-                <p>بيانات لحظية، مؤشرات إضافية، وإعلانات أقل.</p>
-                <button class="bg-green-500 text-white px-4 py-2 rounded-md mt-4">اشترك الآن</button>
+            <div class="pricing-card">
+                <h3>FRX</h3>
+                <p>مؤشرات تحليل إضافية وإمكانية تخصيص الشارت.</p>
+                <div class="price">$15 / شهر</div>
+                <button onclick="location.href='charts.html'">اشترك الآن</button>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                <h3 class="text-xl font-bold mb-2">الباقة الاحترافية</h3>
-                <p>أدوات تداول احترافية، دعم كامل، وتجربة بدون إعلانات.</p>
-                <button class="bg-red-500 text-white px-4 py-2 rounded-md mt-4">اشترك الآن</button>
+            <div class="pricing-card">
+                <h3>FRX PLUS</h3>
+                <p>تحليلات فورية وإمكانية الوصول إلى أدوات تداول متقدمة.</p>
+                <div class="price">$35 / شهر</div>
+                <button onclick="location.href='charts.html'">اشترك الآن</button>
+            </div>
+            <div class="pricing-card">
+                <h3>FRX PRO</h3>
+                <p>كل المميزات الكاملة مع أدوات تداول وتحليل احترافية.</p>
+                <div class="price">$60 / شهر</div>
+                <button onclick="location.href='charts.html'">اشترك الآن</button>
             </div>
         </div>
     </section>
 
-    <!-- أماكن فارغة للشارت -->
-    <section class="p-8 bg-white rounded-lg shadow my-4">
-        <h2 class="text-3xl font-semibold text-center mb-6">📊 الشارتات الحية</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-gray-200 rounded-lg h-80 flex items-center justify-center text-gray-500">المساحة 1: الشارت هنا</div>
-            <div class="bg-gray-200 rounded-lg h-80 flex items-center justify-center text-gray-500">المساحة 2: الشارت هنا</div>
-        </div>
+    <section class="auth-section" id="login">
+        <h2>تسجيل الدخول أو الاشتراك</h2>
+        <button onclick="alert('سيتم إضافة ميزة التسجيل قريبًا!')">تسجيل الدخول</button>
+        <button onclick="alert('سيتم إضافة ميزة الاشتراك قريبًا!')">إنشاء حساب</button>
     </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
-        <p>© 2025 جميع الحقوق محفوظة - منصة التداول الخاصة بك 🚀</p>
-    </footer>
-</body>
-</html>
-
-      chart.resize(document.getElementById('chart').clientWidth, document.getElementById('chart').clientHeight);
-    });
-  </script>
 </body>
 </html>
