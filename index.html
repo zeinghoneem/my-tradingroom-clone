@@ -3,18 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقع التداول - بسيط وأنيق</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>موقع شبيه TradingView</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            color: #fff;
+            text-align: center;
+        }
+        header {
+            padding: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+        .package-card, .chart-placeholder, .auth-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .package-card button, .auth-section button {
+            background-color: #ff7eb3;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .package-card button:hover, .auth-section button:hover {
+            background-color: #ff5583;
+        }
+        .auth-section input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: none;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-    <!-- Header -->
-    <header class="bg-white shadow-md p-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold">📈 منصة التداول</h1>
-        <div>
-            <button class="bg-blue-500 text-white px-4 py-2 rounded-md mr-2">تسجيل الدخول</button>
-            <button class="bg-green-500 text-white px-4 py-2 rounded-md">إنشاء حساب</button>
-        </div>
+<body>
+    <header>
+        موقع رسم بياني أنيق شبيه بـ TradingView
     </header>
+    <div class="container">
+        <section class="auth-section">
+            <h2>تسجيل الدخول</h2>
+            <input type="text" placeholder="اسم المستخدم">
+            <input type="password" placeholder="كلمة المرور">
+            <button>تسجيل الدخول</button>
+        </section>
+        <section class="auth-section">
+            <h2>إنشاء حساب</h2>
+            <input type="text" placeholder="اسم المستخدم">
+            <input type="email" placeholder="البريد الإلكتروني">
+            <input type="password" placeholder="كلمة المرور">
+            <button>اشتراك</button>
+        </section>
+        <section class="chart-placeholder">
+            <h2>منطقة الشارت الحي</h2>
+            <p>سيتم عرض الرسوم البيانية هنا.</p>
+        </section>
+        <section class="package-card">
+            <h2>الباقات المتاحة</h2>
+            <p>باقة أساسية - وصول محدود</p>
+            <button>اشترك الآن</button>
+            <p>باقة احترافية - وصول كامل + مزايا إضافية</p>
+            <button>اشترك الآن</button>
+        </section>
+        <section>
+            <h2>نبذة تعريفية</h2>
+            <p>هذا الموقع يقدم رسوماً بيانية حية مع ميزات متقدمة لمتابعة الأسواق بسهولة وبشكل مجاني لفترة محدودة.</p>
+        </section>
+    </div>
+</body>
+</html>
 
     <!-- نبذة تعريفية -->
     <section class="p-8 text-center bg-white my-4 rounded-lg shadow">
