@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة التحليل الفني</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightweight-charts/3.8.0/lightweight-charts.standalone.production.min.js"></script>
+    <script src="https://unpkg.com/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.min.js"></script>
     <style>
         body {
             background-color: #1a202c;
@@ -26,10 +26,6 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        #chart {
-            width: 100%;
-            height: 400px;
-        }
         h1 {
             margin-bottom: 20px;
             font-size: 24px;
@@ -39,19 +35,13 @@
 <body>
     <h1>منصة التحليل الفني</h1>
     <div class="chart-container">
-        <div id="chart"></div>
+        <div id="chart" style="height: 400px;"></div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const chartElement = document.getElementById("chart");
-            
-            // التأكد من أن العرض مضبوط
-            function getChartWidth() {
-                return chartElement.clientWidth || 600;
-            }
-
             const chart = LightweightCharts.createChart(chartElement, {
-                width: getChartWidth(),
+                width: chartElement.clientWidth,
                 height: 400,
                 layout: {
                     backgroundColor: '#2d3748',
@@ -64,17 +54,38 @@
             });
 
             const candleSeries = chart.addCandlestickSeries();
-            
-            candleSeries.setData([
-                { time: "2024-02-19", open: 100, high: 110, low: 95, close: 105 },
-                { time: "2024-02-20", open: 106, high: 115, low: 100, close: 112 },
-                { time: "2024-02-21", open: 113, high: 120, low: 108, close: 118 },
-            ]);
 
-            // تحديث حجم الشارت عند تغيير حجم النافذة
-            new ResizeObserver(() => {
-                chart.resize(getChartWidth(), 400);
-            }).observe(chartElement);
+            async function fetchData() {
+                const apiKey = "OYGAPEZU6XOLKBZH";
+                const symbol = "IBM";
+                const interval = "5min";
+                const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${interval}&apikey=${apiKey}&outputsize=compact`;
+                
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    console.log("البيانات المستلمة من API:", data);
+                    
+                    if (data["Time Series (5min)"]) {
+                        const timeSeries = data["Time Series (5min)"];
+                        const formattedData = Object.keys(timeSeries).map(timestamp => ({
+                            time: Math.floor(new Date(timestamp).getTime() / 1000),
+                            open: parseFloat(timeSeries[timestamp]["1. open"]),
+                            high: parseFloat(timeSeries[timestamp]["2. high"]),
+                            low: parseFloat(timeSeries[timestamp]["3. low"]),
+                            close: parseFloat(timeSeries[timestamp]["4. close"])
+                        }));
+                        
+                        candleSeries.setData(formattedData.reverse());
+                    } else {
+                        console.error("⚠️ لم يتم العثور على بيانات، تحقق من استجابة API.", data);
+                    }
+                } catch (error) {
+                    console.error("❌ خطأ أثناء جلب البيانات:", error);
+                }
+            }
+
+            fetchData();
         });
     </script>
 </body>
